@@ -9,7 +9,7 @@ in
     autolock = {
       enable = mkEnableOption "autolock";
       time = mkOption {
-        default = 15;
+        default = 10;
         type = types.int;
       };
     };

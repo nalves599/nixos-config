@@ -79,8 +79,11 @@ myBrowser :: String
 myBrowser = "firefox "  -- Sets firefox as browser
 
 myEditor :: String
-myEditor = "subl "  -- Sets sublime as editor
--- myEditor = myTerminal ++ " -e nvim "    -- Sets neovim as editor
+--myEditor = "subl "  -- Sets sublime as editor
+myEditor = myTerminal ++ " -e nvim "    -- Sets neovim as editor
+
+myRofi :: String
+myRofi = "rofi -modi emoji,calc,drun -show-icons -show "
 
 myBorderWidth :: Dimension
 myBorderWidth = 2           -- Sets border width for windows
@@ -253,6 +256,9 @@ myKeys :: [(String, X ())]
 myKeys =
         [ ("M-C-r", spawn "xmonad --recompile")         -- Recompiles xmonad
         , ("M-S-r", spawn "xmonad --restart")           -- Restarts xmonad
+        , ("M-p", spawn (myRofi ++ "drun"))		-- Spawn Rofi drun
+        , ("M1-<Space>", spawn (myRofi ++ "calc"))		-- Spawn Rofi calc
+        , ("M1-e", spawn (myRofi ++ "emoji"))		-- Spawn Rofi emoji
         , ("M-<Return>", spawn myTerminal)		-- Spawn Terminal
         -- Actions
         , ("M-c", kill1) -- Kill the currently focused client
@@ -277,12 +283,16 @@ myKeys =
         , ("<XF86AudioPrev>", spawn "playerctl previous")
         , ("<XF86AudioNext>", spawn "playerctl next")
         , ("<XF86AudioMute>", spawn "pamixer -t")
+        , ("M-S-m", spawn "pamixer -t")
         , ("M-<XF86AudioMute>", spawn "pamixer --source $(pamixer --list-sources | grep -m1 input | cut -d' ' -f1) -t")
         , ("<XF86AudioMicMute>", spawn "pamixer --source $(pamixer --list-sources | grep -m1 input | cut -d' ' -f1) -t")
         , ("<XF86AudioLowerVolume>", spawn "pamixer -d 2")
+        , ("M-S-<Down>", spawn "pamixer -d 2")
         , ("<XF86AudioRaiseVolume>", spawn "pamixer -i 2")
+        , ("M-S-<Up>", spawn "pamixer -i 2")
         , ("<XF86MonBrightnessUp>", spawn "xbacklight -inc 5")
         , ("<XF86MonBrightnessDown>", spawn "xbacklight -dec 5")
+        , ("<Print>", spawn "flameshot gui")
         ]
 
 main :: IO ()

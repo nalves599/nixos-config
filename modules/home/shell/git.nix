@@ -24,7 +24,7 @@ in {
       };
       includes = [
         {
-          condition = "gitdir:${config.xdg.userDirs.documents}/RNL/";
+          condition = "gitdir:~/Documents/RNL/";
           contents = {
             user.email = "nuno.alves@rnl.tecnico.ulisboa.pt";
           };

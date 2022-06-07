@@ -14,7 +14,7 @@ in
       vimdiffAlias = true;
       extraConfig = ''
         " Change leader key to space bar
-        let mapleader = " "
+        let mapleader = ' '
 
         " tabs config
         set shiftwidth=2
@@ -46,6 +46,7 @@ in
         nnoremap Y yg$
         nnoremap J mzJ`z
         nmap <leader>wv <C-w>v
+        nmap <leader>ws <C-w>s
         nmap <leader>wl <C-w>l
         nmap <leader>wh <C-w>h
         nmap <leader>wk <C-w>k
@@ -61,6 +62,7 @@ in
         nmap <leader>gcc  :G commit<CR>
         nmap <leader>gg   :G<CR>
         nmap <leader>gd   :G diff %<CR>
+        nmap <leader>gb   :G blame<CR>
 
         " harpoon
         nnoremap <silent><leader>a :lua require('harpoon.mark').add_file()<CR>
@@ -192,6 +194,12 @@ in
                   capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
                 }, _config or {})
               end
+
+              require('lspconfig').tsserver.setup(config());
+              require('lspconfig').ccls.setup(config());
+              require('lspconfig').jedi_language_server.setup(config());
+              require('lspconfig').rust_analyzer.setup(config());
+              require('lspconfig').gopls.setup(config());
             EOF
           '';
         }
@@ -208,6 +216,7 @@ in
         harpoon
 
         git-worktree-nvim
+        vim-fugitive
 
         gv-vim
         telescope-fzy-native-nvim
@@ -257,8 +266,13 @@ in
       ];
     };
 
-    home.packages = [
-      pkgs.tree-sitter
+    home.packages = with pkgs; [
+      tree-sitter
+      rust-analyzer
+      python39Packages.jedi-language-server
+      ccls
+      nodePackages.typescript-language-server
+      gopls
     ];
 
     home.sessionVariables = {

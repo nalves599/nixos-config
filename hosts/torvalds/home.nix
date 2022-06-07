@@ -49,11 +49,15 @@
     virt-manager
     thunderbird-bin
     any-nix-shell
+    ansible
+    xclip
+    libreoffice
+    realvnc-vnc-viewer
+    zathura
   ];
 
   home.file.".xinitrc".text = ''
-    /home/nalves599/.screenlayout/default.sh &
-
+    flameshot &
     exec xmonad
   '';
 

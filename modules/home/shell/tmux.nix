@@ -12,6 +12,10 @@ in
       escapeTime = 10;
       extraConfig = ''
         set-option -g mouse
+
+        # Split panes
+        bind , split-window -v
+        bind . split-window -h
       '';
     };
   };

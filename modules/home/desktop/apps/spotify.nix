@@ -1,6 +1,6 @@
 { lib, config, pkgs, ... }:
 let
-  inherit (lib) mkEnableOption mkOption types mkIf;
+  inherit (lib) mkEnableOption mkIf;
   cfg = config.modules.desktop.apps.spotify;
 in
 {

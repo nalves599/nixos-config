@@ -12,12 +12,16 @@ in
       interactiveShellInit = "any-nix-shell fish --info-right | source";
       functions = {
       };
+      shellAliases = {
+        ssh = "TERM=xterm-256color /usr/bin/env ssh";
+      };
       shellAbbrs = {
         xopen = "xdg-open";
         cd = "z";
         n = mkIf config.modules.shell.neovim.enable "nvim";
         nv = mkIf config.modules.shell.neovim.enable "nvim";
         g = mkIf config.modules.shell.git.enable "git";
+        rebuild = "sudo nixos-rebuild switch --flake /etc/dotfiles";
       };
     };
 
