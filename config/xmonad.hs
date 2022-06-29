@@ -32,6 +32,7 @@ import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat, doCenterFloat)
 import XMonad.Hooks.ServerMode
 import XMonad.Hooks.SetWMName
 import XMonad.Hooks.WorkspaceHistory
+import XMonad.Hooks.StatusBar.PP (filterOutWsPP)
 
     -- Layouts
 import XMonad.Layout.Accordion
@@ -62,9 +63,9 @@ import qualified XMonad.Layout.MultiToggle as MT (Toggle(..))
    -- Utilities
 import XMonad.Util.Dmenu
 import XMonad.Util.EZConfig (additionalKeysP)
-import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (runProcessWithInput, safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce
+import XMonad.Util.NamedScratchpad
 
 myFont :: String
 myFont = "xft:JetBrains Mono:regular:size=9:antialias=true:hinting=true"
@@ -131,7 +132,7 @@ tall     = renamed [Replace "tall"]
            $ limitWindows 12
            $ mySpacing 8
            $ ResizableTall 1 (3/100) (1/2) []
-magnify  = renamed [Replace "magnify"]
+magnify1  = renamed [Replace "magnify"]
            $ smartBorders
            $ windowNavigation
            $ addTabs shrinkText myTabTheme
@@ -214,7 +215,7 @@ myLayoutHook = avoidStruts $ mouseResize $ windowArrange $ T.toggleLayouts float
                                  ||| noBorders monocle
                                  ||| floats
                                  ||| noBorders tabs
-                                 ||| magnify
+                                 ||| magnify1
                                  ||| grid
                                  ||| spirals
                                  ||| threeCol
@@ -256,10 +257,10 @@ myKeys :: [(String, X ())]
 myKeys =
         [ ("M-C-r", spawn "xmonad --recompile")         -- Recompiles xmonad
         , ("M-S-r", spawn "xmonad --restart")           -- Restarts xmonad
-        , ("M-p", spawn (myRofi ++ "drun"))		-- Spawn Rofi drun
-        , ("M1-<Space>", spawn (myRofi ++ "calc"))		-- Spawn Rofi calc
-        , ("M1-e", spawn (myRofi ++ "emoji"))		-- Spawn Rofi emoji
-        , ("M-<Return>", spawn myTerminal)		-- Spawn Terminal
+        , ("M-p", spawn (myRofi ++ "drun"))
+        , ("M1-<Space>", spawn (myRofi ++ "calc"))      -- Spawn Rofi calc
+        , ("M1-e", spawn (myRofi ++ "emoji"))           -- Spawn Rofi emoji
+        , ("M-<Return>", spawn myTerminal)              -- Spawn Terminal
         -- Actions
         , ("M-c", kill1) -- Kill the currently focused client
         , ("M-S-l", spawn "slock") -- Lock screen
@@ -315,7 +316,7 @@ main = do
         , borderWidth        = myBorderWidth
         , normalBorderColor  = myNormColor
         , focusedBorderColor = myFocusColor
-        , logHook = dynamicLogWithPP $ namedScratchpadFilterOutWorkspacePP $ xmobarPP
+        , logHook = dynamicLogWithPP $ filterOutWsPP [scratchpadWorkspaceTag] $ xmobarPP
               -- the following variables beginning with 'pp' are settings for xmobar.
               { ppOutput = hPutStrLn xmproc                          -- xmobar
               , ppCurrent = xmobarColor "#c792ea" "" . wrap "<box type=Bottom width=2 mb=2 color=#c792ea>" "</box>"         -- Current workspace

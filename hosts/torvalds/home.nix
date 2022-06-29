@@ -54,6 +54,8 @@
     libreoffice
     realvnc-vnc-viewer
     zathura
+    xlockmore
+    docker-compose
   ];
 
   home.file.".xinitrc".text = ''

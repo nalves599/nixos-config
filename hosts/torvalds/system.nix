@@ -48,24 +48,24 @@
       address = "192.168.102.212";
       prefixLength = 22;
     }];
-    wg-quick.interfaces = {
-      wgstt = {
-        address = [ "10.6.77.137/32" "fd00:677::137/128"];
-        privateKeyFile = "/persist/secrets/wg/privkey";
-        dns = [ "10.5.77.1" ];
-        peers = [
-          {
-            publicKey = "u0DdfahuhX8GsVaQ4P2kBcHoF9kw9HZL9uqPcu2UMw8=";
-            endpoint = "pest.stt.rnl.tecnico.ulisboa.pt:34266";
-            allowedIPs = [
-              "10.0.0.0/8"
-              "fd00::/8"
-            ];
-            persistentKeepalive = 25;
-          }
-        ];
-      };
-    };
+    #wg-quick.interfaces = {
+      #wgstt = {
+        #address = [ "10.6.77.137/32" "fd00:677::137/128"];
+        #privateKeyFile = "/persist/secrets/wg/privkey";
+        #dns = [ "10.5.77.1" ];
+        #peers = [
+          #{
+            #publicKey = "u0DdfahuhX8GsVaQ4P2kBcHoF9kw9HZL9uqPcu2UMw8=";
+            #endpoint = "pest.stt.rnl.tecnico.ulisboa.pt:34266";
+            #allowedIPs = [
+              #"10.0.0.0/8"
+              #"fd00::/8"
+            #];
+            #persistentKeepalive = 25;
+          #}
+        #];
+      #};
+    #};
     interfaces.enp4s0 = {
       wakeOnLan.enable = true;
       ipv4 = {
@@ -106,7 +106,7 @@
     passwordAuthentication = false;
     permitRootLogin = "no";
     authorizedKeysFiles = lib.mkForce [ "/etc/ssh/authorized_keys.d/%u" ];
-    challengeResponseAuthentication = false;
+    kbdInteractiveAuthentication = false;
   };
 
   services.xserver = {
@@ -141,8 +141,8 @@
     users.root.initialPassword = "123";
     users.nalves599 = {
       openssh.authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBN1G9PeJIPuyl4amUH7NovvQRBBKvKAO6ldjr6a0a0K"
-	      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEFsP0t1WPaM3G/mdyclf0Fh+4FLuXtuA5NUaF4BLpLk"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBN1G9PeJIPuyl4amUH7NovvQRBBKvKAO6ldjr6a0a0K @musk"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP8jGGPVwXQBjOUpNYygQhAmjq+3OHp85ckO0PlcmJ4J @jobs"
       ];
       isNormalUser = true;
       createHome = true;
@@ -152,7 +152,7 @@
   };
 
   # Required for gtk.
-  services.dbus.packages = [ pkgs.gnome3.dconf ];
+  services.dbus.packages = [ pkgs.dconf ];
 
   virtualisation = {
     docker.enable = true;

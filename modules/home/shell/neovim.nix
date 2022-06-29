@@ -62,7 +62,10 @@ in
         nmap <leader>gcc  :G commit<CR>
         nmap <leader>gg   :G<CR>
         nmap <leader>gd   :G diff %<CR>
-        nmap <leader>gb   :G blame<CR>
+        nmap <leader>gB   :G blame<CR>
+        nmap <leader>gcw  :lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>
+        nmap <leader>gb   :G checkout<Space>
+        nmap <leader>gcb  :G branch<Space>
 
         " harpoon
         nnoremap <silent><leader>a :lua require('harpoon.mark').add_file()<CR>
@@ -80,7 +83,7 @@ in
         nnoremap <leader>vrn :lua vim.lsp.buf.rename()<CR>
         nnoremap <leader>vh :lua vim.lsp.buf.hover()<CR>
         nnoremap <leader>vca :lua vim.lsp.buf.code_action()<CR>
-        nnoremap <leader>vsd :lua vim.lsp.diagnostic.show_line_diagnostics(); vim.lsp.util.show_line_diagnostics()<CR>
+        nnoremap <leader>vsd :lua vim.diagnostic.show_flost()<CR>
         nnoremap <leader>vn :lua vim.lsp.diagnostic.goto_next()<CR>
         nnoremap <leader>vll :call LspLocationList()<CR>
 
@@ -180,6 +183,8 @@ in
                   ['<C-d>'] = cmp.mapping.scroll_docs(4),
                   ['<C-Space>'] = cmp.mapping.complete(),
                   ['<CR>'] = cmp.mapping.confirm({ select = true }),
+                  ["<Up>"] = cmp.mapping.select_prev_item(),
+                  ["<Down>"] = cmp.mapping.select_next_item(),
                 },
                 sources = {
                   { name = 'nvim_lsp' },
@@ -200,6 +205,8 @@ in
               require('lspconfig').jedi_language_server.setup(config());
               require('lspconfig').rust_analyzer.setup(config());
               require('lspconfig').gopls.setup(config());
+              require('lspconfig').emmet_ls.setup(config());
+              require('lspconfig').html.setup(config({ cmd = {"html-languageserver", "--stdio"}, filetypes = {'html', 'htmldjango'} }));
             EOF
           '';
         }
@@ -259,6 +266,7 @@ in
             pkgs.tree-sitter-grammars.tree-sitter-ocaml
             pkgs.tree-sitter-grammars.tree-sitter-rust
             pkgs.tree-sitter-grammars.tree-sitter-vim
+            pkgs.tree-sitter-grammars.tree-sitter-html
           ]));
           config = "lua require'nvim-treesitter.configs'.setup { highlight = { enable = true } }";
         }
@@ -272,6 +280,8 @@ in
       python39Packages.jedi-language-server
       ccls
       nodePackages.typescript-language-server
+      nodePackages.vscode-html-languageserver-bin
+      #nodePackages.emmet-ls
       gopls
     ];
 

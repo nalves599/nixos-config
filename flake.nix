@@ -2,11 +2,11 @@
   description = "Nix configuration for a RNL SysAdmin";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-21.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-22.05";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     impermanence.url = "github:nix-community/impermanence/master";
     home = {
-      url = "github:nix-community/home-manager/release-21.11";
+      url = "github:nix-community/home-manager/release-22.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -46,7 +46,7 @@
         (name: {
             name = removeSuffix ".nix" name;
             value = import "${dir}/${name}" {
-              packageDir = "./packages";
+              packageDir = ./packages;
             };
         })
         (attrNames (readDir dir)));
