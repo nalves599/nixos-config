@@ -1,3 +1,5 @@
-{ packageDir, ... }: final: prev: rec {
-  chef-workstation = prev.callPackage "${packageDir}/chef-workstation" {};
+{ packageDir, ... }: self: super: rec {
+  discord = super.discord.override {
+    nss = self.nss_latest; # Fix discord links using firefox
+  };
 }

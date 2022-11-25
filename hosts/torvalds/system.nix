@@ -3,7 +3,10 @@
   # Modules configuration.
   modules = {
     desktop = {
-      slock.enable = true;
+      slock = {
+        enable = true;
+        autolock.enable = true;
+      };
       fonts.enable = true;
     };
   };
@@ -28,6 +31,8 @@
     enable = true;
     publish.enable = true;
   };
+
+  programs.steam.enable = true;
 
   # Define hostname and enable network manager
   networking = {
@@ -114,6 +119,7 @@
     videoDrivers = [ "nvidia" ];
     displayManager.startx.enable = true;
     dpi = 86;
+    xkbOptions = "ctrl:nocaps";
   };
 
   # Use old version of Nvidia driver to support RNL GPU
@@ -138,7 +144,7 @@
   nix.trustedUsers = [ "root" "@wheel" ];
   users = {
     mutableUsers = true;
-    users.root.initialPassword = "123";
+    users.root.initialPassword = "$6$2PoJ9gNeF9X2G3en$SJXYAejT4JQCEF2qBLskRs7nX2dMnH6YtJzTTvSsYeRpD.fg8kWDQ.vWIM01zHiWnogBhs4/u2xIFe.8fOAYt/";
     users.nalves599 = {
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBN1G9PeJIPuyl4amUH7NovvQRBBKvKAO6ldjr6a0a0K @musk"

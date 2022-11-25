@@ -10,9 +10,11 @@ in {
 
   # Essential packages.
   environment.systemPackages = with pkgs; [
+    bashmount
     curl
     dig
     fd
+    file
     gcc
     git
     gnumake
@@ -27,7 +29,6 @@ in {
     wget
     xdotool
     zip
-    chef-workstation
   ];
 
   system.stateVersion = "22.05";

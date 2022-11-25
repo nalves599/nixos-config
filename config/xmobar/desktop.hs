@@ -1,12 +1,12 @@
 Config {
-      font          = "xft:Noto Sans Mono:size=11:bold:antialias=true:hinting=true,Font Awesome 5 Free Solid:size=11:antialias=true:hinting=true:style=Solid,Font Awesome 5 Brands:size=11:antialias=true:hinting=true:style=Regular"
+    font        = "xft:Noto Sans Mono:size=11:bold:antialias=true:hinting=true,Font Awesome 6 Free Solid:size=11:antialias=true:hinting=true:style=Solid,Font Awesome 5 Brands:size=11:antialias=true:hinting=true:style=Regular"
 	, bgColor	    = "#2e3440"
 	, fgColor	    = "#d8dee9"
-	, position      = Top
-	, hideOnStart   = False
+	, position    = Top
+	, hideOnStart = False
 	, allDesktops	= True
-	, persistent    = True
-	, commands      = [
+	, persistent  = True
+	, commands    = [
 
     -- Keyboard language
     Run Kbd [ ("pt", "<fn=1>\xf11c</fn> PT"), ("us", "<fn=1>\xf11c</fn> US") ]

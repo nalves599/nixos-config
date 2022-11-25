@@ -41,8 +41,8 @@ in
         set clipboard=unnamedplus
 
         " window
-        vnoremap K :m '<-2<CR>gv=gv
-        vnoremap J :m '>+1<CR>gv=gv
+        vnoremap K <cmd>m '<-2<CR>gv=gv
+        vnoremap J <cmd>m '>+1<CR>gv=gv
         nnoremap Y yg$
         nnoremap J mzJ`z
         nmap <leader>wv <C-w>v
@@ -58,34 +58,37 @@ in
         nmap <leader>bp <cmd>bn<CR>
 
         " git
-        nmap <leader>ga   :Git add %<CR>
-        nmap <leader>gcc  :G commit<CR>
-        nmap <leader>gg   :G<CR>
-        nmap <leader>gd   :G diff %<CR>
-        nmap <leader>gB   :G blame<CR>
-        nmap <leader>gcw  :lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>
-        nmap <leader>gb   :G checkout<Space>
-        nmap <leader>gcb  :G branch<Space>
+        nmap <leader>ga   <cmd>Git add %<CR>
+        nmap <leader>gcc  <cmd>G commit<CR>
+        nmap <leader>gg   <cmd>G<CR>
+        nmap <leader>gd   <cmd>G diff %<CR>
+        nmap <leader>gB   <cmd>G blame<CR>
+        nmap <leader>gcw  <cmd>lua require('telescope').extensions.git_worktree.create_git_worktree()<CR>
+        nmap <leader>gb   <cmd>G checkout<Space>
+        nmap <leader>gcb  <cmd>G branch<Space>
 
         " harpoon
-        nnoremap <silent><leader>a :lua require('harpoon.mark').add_file()<CR>
-        nnoremap <silent><C-e> :lua require('harpoon.ui').toggle_quick_menu()<CR>
-        nnoremap <silent><leader>1 :lua require("harpoon.ui").nav_file(1)<CR>
-        nnoremap <silent><leader>2 :lua require("harpoon.ui").nav_file(2)<CR>
-        nnoremap <silent><leader>3 :lua require("harpoon.ui").nav_file(3)<CR>
-        nnoremap <silent><leader>4 :lua require("harpoon.ui").nav_file(4)<CR>:
+        nnoremap <silent><leader>a <cmd>lua require('harpoon.mark').add_file()<CR>
+        nnoremap <silent><C-e> <cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>
+        nnoremap <silent><leader>1 <cmd>lua require("harpoon.ui").nav_file(1)<CR>
+        nnoremap <silent><leader>2 <cmd>lua require("harpoon.ui").nav_file(2)<CR>
+        nnoremap <silent><leader>3 <cmd>lua require("harpoon.ui").nav_file(3)<CR>
+        nnoremap <silent><leader>4 <cmd>lua require("harpoon.ui").nav_file(4)<CR>
 
         " lsp
-        nnoremap <leader>vd :lua vim.lsp.buf.definition()<CR>
-        nnoremap <leader>vi :lua vim.lsp.buf.implementation()<CR>
-        nnoremap <leader>vsh :lua vim.lsp.buf.signature_help()<CR>
-        nnoremap <leader>vrr :lua vim.lsp.buf.references()<CR>
-        nnoremap <leader>vrn :lua vim.lsp.buf.rename()<CR>
-        nnoremap <leader>vh :lua vim.lsp.buf.hover()<CR>
-        nnoremap <leader>vca :lua vim.lsp.buf.code_action()<CR>
-        nnoremap <leader>vsd :lua vim.diagnostic.show_flost()<CR>
-        nnoremap <leader>vn :lua vim.lsp.diagnostic.goto_next()<CR>
-        nnoremap <leader>vll :call LspLocationList()<CR>
+        nnoremap <leader>cd <cmd>lua vim.lsp.buf.definition()<CR>
+        nnoremap <leader>cD <cmd>lua vim.lsp.buf.references()<CR>
+        nnoremap <leader>ci <cmd>lua vim.lsp.buf.implementation()<CR>
+        nnoremap <leader>cs <cmd>lua vim.lsp.buf.signature_help()<CR>
+        nnoremap <leader>cr <cmd>lua vim.lsp.buf.rename()<CR>
+        nnoremap <leader>ch <cmd>lua vim.lsp.buf.hover()<CR>
+        nnoremap <leader>ca <cmd>lua vim.lsp.buf.code_action()<CR>
+        nnoremap <leader>cf <cmd>lua vim.diagnostic.open_float()<CR>
+        nnoremap <leader>cn <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+        nnoremap <leader>cx <cmd>call LspLocationList()<CR>
+
+        " nerdcommenter
+        map <leader>cc <cmd>call nerdcommenter#Comment(0, 'toggle')<CR>
 
         " telescope
         nnoremap <leader>fb <cmd>Telescope buffers<cr>
@@ -95,6 +98,12 @@ in
         nnoremap <leader>fw <cmd>lua require('telescope').extensions.git_worktree.git_worktrees()<cr>
         nnoremap <leader>fe <cmd>Ex<cr>
 
+        " toggle-term
+        nnoremap <silent><leader>t <Cmd>exe v:count1 . "ToggleTerm"<CR>
+        inoremap <silent> <Esc><Cmd>exe v:count1 . "ToggleTerm"<CR>
+
+        " vimtex
+        nnoremap <silent><leader>lv <cmd>VimtexView<CR>
 
         " delete trailing whitespace
         autocmd BufWritePre * %s/\s\+$//e
@@ -117,6 +126,18 @@ in
         highlight Normal guibg=none
       '';
       plugins = with pkgs.vimPlugins; [
+
+        {
+          plugin = toggleterm-nvim;
+          config = ''
+            lua << EOF
+              require("toggleterm").setup{
+                size = 20,
+                direction = 'float'
+              }
+            EOF
+          '';
+        }
 
         {
           plugin = lualine-nvim;
@@ -158,7 +179,12 @@ in
 
         vim-numbertoggle
         vim-devicons
-        nerdcommenter
+        {
+          plugin = nerdcommenter;
+          config = ''
+            let g:NERDCreateDefaultMappings = 0
+          '';
+        }
         neoformat
 
         gruvbox-nvim
@@ -206,6 +232,7 @@ in
               require('lspconfig').rust_analyzer.setup(config());
               require('lspconfig').gopls.setup(config());
               require('lspconfig').emmet_ls.setup(config());
+              require('lspconfig').rnix.setup(config());
               require('lspconfig').html.setup(config({ cmd = {"html-languageserver", "--stdio"}, filetypes = {'html', 'htmldjango'} }));
             EOF
           '';
@@ -224,6 +251,37 @@ in
 
         git-worktree-nvim
         vim-fugitive
+
+        {
+          plugin = vimtex;
+          config = ''
+            let g:vimtex_view_method = 'zathura'
+            let g:vimtex_compiler_pdflatex = { 'options': ['-shell-escape'], }
+            let g:vimtex_view_enabled = 1
+            let g:vimtex_view_automatic = 1
+
+            " Get Vim's window ID for switching focus from Zathura to Vim using xdotool.
+            " Only set this variable once for the current Vim instance.
+            if !exists("g:vim_window_id")
+              let g:vim_window_id = system("xdotool getactivewindow")
+            endif
+
+            function! s:TexFocusVim() abort
+              " Give window manager time to recognize focus moved to Zathura;
+              " tweak the 200m as needed for your hardware and window manager.
+              sleep 200m
+
+              " Refocus Vim and redraw the screen
+              silent execute "!xdotool windowfocus " . expand(g:vim_window_id)
+              redraw!
+            endfunction
+
+            augroup vimtex_event_focus
+              au!
+              au User VimtexEventView call s:TexFocusVim()
+            augroup END
+          '';
+        }
 
         gv-vim
         telescope-fzy-native-nvim
@@ -254,7 +312,9 @@ in
             require("telescope").load_extension("git_worktree");
             EOF
           '';
+
         }
+        markdown-preview-nvim
 
         {
           plugin = (nvim-treesitter.withPlugins (plugins: [
@@ -267,6 +327,7 @@ in
             pkgs.tree-sitter-grammars.tree-sitter-rust
             pkgs.tree-sitter-grammars.tree-sitter-vim
             pkgs.tree-sitter-grammars.tree-sitter-html
+            pkgs.tree-sitter-grammars.tree-sitter-haskell
           ]));
           config = "lua require'nvim-treesitter.configs'.setup { highlight = { enable = true } }";
         }
@@ -281,6 +342,8 @@ in
       ccls
       nodePackages.typescript-language-server
       nodePackages.vscode-html-languageserver-bin
+      # haskellPackages.hls # Broken
+      rnix-lsp
       #nodePackages.emmet-ls
       gopls
     ];

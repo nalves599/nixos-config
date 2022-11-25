@@ -3,7 +3,6 @@
   # Modules configuration.
   modules = {
     xdg.enable = true;
-    sxhkd.enable = true;
 
     shell = {
       git.enable = true;
@@ -54,13 +53,8 @@
     libreoffice
     realvnc-vnc-viewer
     zathura
-    xlockmore
     docker-compose
+    vscode
   ];
-
-  home.file.".xinitrc".text = ''
-    flameshot &
-    exec xmonad
-  '';
 
 }

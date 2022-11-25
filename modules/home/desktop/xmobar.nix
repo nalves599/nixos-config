@@ -9,7 +9,7 @@ in {
       type = types.enum [ "laptop" "desktop" ];
     };
   };
-  
+
   config = mkIf cfg.enable {
     home = {
       packages = [ pkgs.haskellPackages.xmobar pkgs.pamixer ];

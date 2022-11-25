@@ -9,7 +9,7 @@ in {
     fonts = {
       enableDefaultFonts = true;
       fonts = with pkgs; [
-        noto-fonts 
+        noto-fonts
         noto-fonts-cjk
         jetbrains-mono
         font-awesome

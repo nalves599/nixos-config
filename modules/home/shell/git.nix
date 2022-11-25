@@ -11,7 +11,7 @@ in {
       userName = "Nuno Alves";
       userEmail = "nuno.alves02@gmail.com";
       signing = {
-        key = null; # Let GnuPG decide what signing key to use depending on commit's author
+        key = null; # Let GnuPG decide which signing key to use depending on commit's author
         signByDefault = true;
       };
       extraConfig = {

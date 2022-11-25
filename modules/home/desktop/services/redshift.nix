@@ -13,7 +13,7 @@ in
       longitude = 2.349014;
       temperature = {
         day = 3800;
-        night = 3600;
+        night = 3800;
       };
     };
   };

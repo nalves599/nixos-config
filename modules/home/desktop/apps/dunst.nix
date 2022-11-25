@@ -12,7 +12,6 @@ in
       settings = {
         global = {
           follow = "mouse";
-          geometry = "300x5-5+30";
           indicate_hidden = "yes";
           shrink = "no";
           transparency = 0;
