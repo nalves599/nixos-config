@@ -51,6 +51,9 @@ in
         nmap <leader>wh <C-w>h
         nmap <leader>wk <C-w>k
         nmap <leader>wj <C-w>j
+        nmap <leader>wt <cmd>tab split<CR>
+        nmap <leader>wn <cmd>tabnext<CR>
+        nmap <leader>wb <cmd>tabprevious<CR>
 
         " buffer
         nmap <leader>bc <cmd>bw<CR>
