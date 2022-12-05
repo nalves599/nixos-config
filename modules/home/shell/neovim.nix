@@ -51,6 +51,9 @@ in
         nmap <leader>wh <C-w>h
         nmap <leader>wk <C-w>k
         nmap <leader>wj <C-w>j
+        nmap <leader>wt <cmd>tab split<CR>
+        nmap <leader>wn <cmd>tabnext<CR>
+        nmap <leader>wb <cmd>tabprevious<CR>
 
         " buffer
         nmap <leader>bc <cmd>bw<CR>
@@ -222,7 +225,7 @@ in
 
               local function config(_config)
                 return vim.tbl_deep_extend('force', {
-                  capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+                 -- capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
                 }, _config or {})
               end
 

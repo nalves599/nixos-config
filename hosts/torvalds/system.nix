@@ -141,11 +141,12 @@
     opengl.enable = true;
   };
 
-  nix.trustedUsers = [ "root" "@wheel" ];
+  nix.settings.trusted-users = [ "root" "@wheel" ];
   users = {
-    mutableUsers = true;
-    users.root.initialPassword = "$6$2PoJ9gNeF9X2G3en$SJXYAejT4JQCEF2qBLskRs7nX2dMnH6YtJzTTvSsYeRpD.fg8kWDQ.vWIM01zHiWnogBhs4/u2xIFe.8fOAYt/";
+    mutableUsers = false;
+    users.root.initialHashedPassword = "$6$XIZApqhPtukt/apQ$/lFWBen7ymEAqNybzrz5kwupvEdju4tkdWg5aLOlLv1ADm/RsSzzL3b2cfJvuKT09AF4cisg.VQ0mXgTnQs8Y.";
     users.nalves599 = {
+      initialHashedPassword = "$6$lDna6MmmAsbNAFfg$UVNavktffwv8kj72HepUNIOeKZo6idV2s3hIhgCZ2ZFcuNypPkfOeY1kIOpnVN7OR5MLyJsuUBSPhqQT0YQJQ0";
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBN1G9PeJIPuyl4amUH7NovvQRBBKvKAO6ldjr6a0a0K @musk"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP8jGGPVwXQBjOUpNYygQhAmjq+3OHp85ckO0PlcmJ4J @jobs"
