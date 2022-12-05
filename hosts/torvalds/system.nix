@@ -141,7 +141,7 @@
     opengl.enable = true;
   };
 
-  nix.trustedUsers = [ "root" "@wheel" ];
+  nix.settings.trusted-users = [ "root" "@wheel" ];
   users = {
     mutableUsers = true;
     users.root.initialPassword = "$6$2PoJ9gNeF9X2G3en$SJXYAejT4JQCEF2qBLskRs7nX2dMnH6YtJzTTvSsYeRpD.fg8kWDQ.vWIM01zHiWnogBhs4/u2xIFe.8fOAYt/";
