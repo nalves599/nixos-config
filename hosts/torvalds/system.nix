@@ -150,6 +150,7 @@
       openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBN1G9PeJIPuyl4amUH7NovvQRBBKvKAO6ldjr6a0a0K @musk"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP8jGGPVwXQBjOUpNYygQhAmjq+3OHp85ckO0PlcmJ4J @jobs"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKCwSZftiPE9cgigiF6KFiizcTZd4sjVi14CcSYi+zfV @bezos"
       ];
       isNormalUser = true;
       createHome = true;
